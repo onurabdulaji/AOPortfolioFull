@@ -16,7 +16,7 @@ public class ReadRepository<T> : IReadGenericRepository<T> where T : class, IEnt
         _context = appDbContext;
     }
     protected DbSet<T> Table { get => _context.Set<T>(); }
-    public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
+    public async Task<int> CountEntitiesAsync(Expression<Func<T, bool>>? predicate = null)
     {
         Table.AsNoTracking();
         if (predicate is not null) Table.Where(predicate);
@@ -24,13 +24,13 @@ public class ReadRepository<T> : IReadGenericRepository<T> where T : class, IEnt
         return await Table.CountAsync();
     }
 
-    public IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false)
+    public IQueryable<T> FindEntity(Expression<Func<T, bool>> predicate, bool enableTracking = false)
     {
         if (!enableTracking) Table.AsNoTracking();
         return Table.Where(predicate);
     }
 
-    public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
+    public async Task<IList<T>> GetAllEntitiesAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
     {
         IQueryable<T> queryable = Table;
         if (!enableTracking) queryable = queryable.AsNoTracking();
@@ -42,7 +42,7 @@ public class ReadRepository<T> : IReadGenericRepository<T> where T : class, IEnt
         return await queryable.ToListAsync();
     }
 
-    public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool enableTracking = false)
+    public async Task<T> GetEntityAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool enableTracking = false)
     {
         IQueryable<T> queryable = Table;
         if (!enableTracking) queryable = queryable.AsNoTracking();

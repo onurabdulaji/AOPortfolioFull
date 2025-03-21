@@ -12,6 +12,6 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     IWriteGenericRepository<T> GetWriteGenericRepository<T>() where T : class, IEntity, new();
     Task<int> SaveAsync();
     Task<string> SaveAsyncWithMessage();
-    IAboutReadRepository AboutReadRepository { get; }
-    IAboutWriteRepository AboutWriteRepository { get; }
+    IAboutReadRepository TAboutReadRepository { get; }
+    IAboutWriteRepository TAboutWriteRepository { get; }
 }

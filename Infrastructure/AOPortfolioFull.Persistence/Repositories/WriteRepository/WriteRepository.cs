@@ -12,20 +12,20 @@ public class WriteRepository<T> : IWriteGenericRepository<T> where T : class, IE
     {
         _context = context;
     }
-    private DbSet<T> Table { get => _context.Set<T>(); }
-    public async Task AddAsync(T entity)
+    protected DbSet<T> Table { get => _context.Set<T>(); }
+    public async Task AddEntityAsync(T entity)
     {
         await Table.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task AddRangeAsync(IList<T> entities)
+    public async Task AddEntitiesRangeAsync(IList<T> entities)
     {
         await Table.AddRangeAsync(entities);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<(bool isSuccess, T entity)> ChangeStatusAsync(T entity)
+    public async Task<(bool isSuccess, T entity)> ChangeEntityStatusAsync(T entity)
     {
         entity.IsActive = !entity.IsActive;
         Table.Update(entity);
@@ -33,14 +33,14 @@ public class WriteRepository<T> : IWriteGenericRepository<T> where T : class, IE
         return (result > 0, entity);
     }
 
-    public async Task<T> RemoveAsync(T entity)
+    public async Task<T> RemoveEntityAsync(T entity)
     {
         Table.Remove(entity);
         await _context.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<T> UpdateAsync(T entity)
+    public async Task<T> UpdateEntityAsync(T entity)
     {
         Table.Update(entity);
         await _context.SaveChangesAsync();

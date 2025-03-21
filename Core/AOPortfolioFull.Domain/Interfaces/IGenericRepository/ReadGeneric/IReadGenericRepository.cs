@@ -6,14 +6,14 @@ namespace AOPortfolioFull.Domain.Interfaces.IGenericRepository.ReadGeneric;
 
 public interface IReadGenericRepository<T> where T : class, IEntity , new()
 {
-    Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null,
+    Task<IList<T>> GetAllEntitiesAsync(Expression<Func<T, bool>>? predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             bool enableTracking = false);
 
-    Task<T> GetAsync(Expression<Func<T, bool>> predicate,
+    Task<T> GetEntityAsync(Expression<Func<T, bool>> predicate,
             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
             bool enableTracking = false);
-    Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null);
-    IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false);
+    Task<int> CountEntitiesAsync(Expression<Func<T, bool>>? predicate = null);
+    IQueryable<T> FindEntity(Expression<Func<T, bool>> predicate, bool enableTracking = false);
 }

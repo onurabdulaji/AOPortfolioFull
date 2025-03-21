@@ -21,7 +21,7 @@ public class UnitOfWork : IUnitOfWork
         _context = appDbContext;
     }
 
-    public IAboutReadRepository AboutReadRepository
+    public IAboutReadRepository TAboutReadRepository
     {
         get
         {
@@ -33,7 +33,7 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public IAboutWriteRepository AboutWriteRepository
+    public IAboutWriteRepository TAboutWriteRepository
     {
         get
         {

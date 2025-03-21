@@ -56,11 +56,9 @@ public class AboutWriteRepository : WriteRepository<About>, IAboutWriteRepositor
     public async Task<About> UpdateAbout(About updateAbout)
     {
         var about = await _context.Abouts.FindAsync(updateAbout.Id);
-        if (about == null)
-        {
-            throw new KeyNotFoundException("About entity not found.");
-        }
-
+        if (about == null) throw new KeyNotFoundException("About entity not found.");
+        if (updateAbout.Age <= 10) throw new ArgumentException("Age must be greater than 10.");
+       
         _context.Entry(about).CurrentValues.SetValues(updateAbout);
         _context.Entry(about).Entity.ModifiedDate = DateTime.UtcNow;
         await _context.SaveChangesAsync();

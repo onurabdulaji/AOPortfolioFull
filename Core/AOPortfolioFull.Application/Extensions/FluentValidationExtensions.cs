@@ -1,4 +1,5 @@
 ﻿using AOPortfolioFull.Application.Behaviours;
+using AOPortfolioFull.Application.Validations.AboutValidation;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
