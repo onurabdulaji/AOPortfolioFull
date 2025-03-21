@@ -16,6 +16,7 @@ builder.Services.AddUnitOfWorkExtension();
 builder.Services.AddMediatorExtension();
 builder.Services.AddMapsterExtension();
 builder.Services.AddFluentValidationExtension();
+builder.Services.AddServiceAndManagersExtensions();
 #endregion
 
 builder.Services.AddControllers();

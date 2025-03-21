@@ -5,4 +5,8 @@ namespace AOPortfolioFull.Domain.Interfaces.IRepositories.IAboutRepositories.Wri
 
 public interface IAboutWriteRepository : IWriteGenericRepository<About>
 {
+    Task<About> CreateAbout(About createAbout);
+    Task<About> UpdateAbout(About updateAbout);
+    Task<About> DeleteAbout(Guid Id);
+    Task<About> ChangeStatus(Guid Id);
 }
