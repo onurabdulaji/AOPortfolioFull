@@ -1,11 +1,18 @@
+using AOPortfolioFull.Application.Extensions;
 using AOPortfolioFull.Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-#region DatabaseExtension
+#region PersistenceLayerExtensions
 builder.Services.AddDbContextExtension(builder.Configuration);
+#endregion
+
+#region ApplicationLayerExtensions
+builder.Services.AddMediatorExtension();
+builder.Services.AddMapsterExtension();
+builder.Services.AddFluentValidationExtension();
 #endregion
 
 builder.Services.AddControllers();
