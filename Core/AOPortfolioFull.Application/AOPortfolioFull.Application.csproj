@@ -19,4 +19,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\Response\" />
+    <Folder Include="Features\MediatR\AboutSlice\Commands\" />
+  </ItemGroup>
+
 </Project>

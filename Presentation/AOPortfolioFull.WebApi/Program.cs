@@ -1,5 +1,6 @@
 using AOPortfolioFull.Application.Extensions;
 using AOPortfolioFull.Persistence.Extensions;
+using AOPortfolioFull.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapEndpoints(builder.Services);
 
 app.UseHttpsRedirection();
 
