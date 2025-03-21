@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 #region PersistenceLayerExtensions
 builder.Services.AddDbContextExtension(builder.Configuration);
 builder.Services.AddGenericPatternExtension();
+builder.Services.AddRepositoriesExtension();
 #endregion
 
 #region ApplicationLayerExtensions
