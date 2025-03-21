@@ -1,0 +1,6 @@
+@AOPortfolioFull.WebApi_HostAddress = http://localhost:5227
+
+GET {{AOPortfolioFull.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
