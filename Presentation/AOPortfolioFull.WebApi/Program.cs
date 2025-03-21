@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextExtension(builder.Configuration);
 builder.Services.AddGenericPatternExtension();
 builder.Services.AddRepositoriesExtension();
+builder.Services.AddUnitOfWorkExtension();
 #endregion
 
 #region ApplicationLayerExtensions
