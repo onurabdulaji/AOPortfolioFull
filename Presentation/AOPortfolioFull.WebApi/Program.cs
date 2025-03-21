@@ -1,6 +1,12 @@
+using AOPortfolioFull.Persistence.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+#region DatabaseExtension
+builder.Services.AddDbContextExtension(builder.Configuration);
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
