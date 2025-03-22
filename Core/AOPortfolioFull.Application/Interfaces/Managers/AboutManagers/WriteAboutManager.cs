@@ -1,8 +1,8 @@
 ﻿using AOPortfolioFull.Application.DTO.Request.AboutDtos;
 using AOPortfolioFull.Application.Interfaces.Services.AboutServices;
+using AOPortfolioFull.Application.Validations;
 using AOPortfolioFull.Domain.Entities;
 using AOPortfolioFull.Domain.Interfaces.IUnitOfWorks;
-using FluentValidation;
 using Mapster;
 
 namespace AOPortfolioFull.Application.Interfaces.Managers.AboutManagers;
@@ -10,21 +10,18 @@ namespace AOPortfolioFull.Application.Interfaces.Managers.AboutManagers;
 public class WriteAboutManager : IWriteAboutService
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IValidator<CreateAboutDto> _createAboutValidator;
-    private readonly IValidator<UpdateAboutDto> _updateAboutDtoValidator;
+    private readonly IValidatorService _validatorService;
 
-    public WriteAboutManager(IUnitOfWork unitOfWork, IValidator<CreateAboutDto> createAboutValidator, IValidator<UpdateAboutDto> createAboutDtoValidator)
+    public WriteAboutManager(IUnitOfWork unitOfWork, IValidatorService validatorService)
     {
         _unitOfWork = unitOfWork;
-        _createAboutValidator = createAboutValidator;
-        _updateAboutDtoValidator = createAboutDtoValidator;
+        _validatorService = validatorService;
     }
 
     public async Task<CreateAboutDto> CreateAbout(CreateAboutDto createAboutDto)
     {
-        var validationResult = await _createAboutValidator.ValidateAsync(createAboutDto);
-        if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
-
+        await _validatorService.ValidateAsync(createAboutDto);
+        
         var newAbout = createAboutDto.Adapt<About>();
 
         await _unitOfWork.TAboutWriteRepository.CreateAbout(newAbout);
@@ -36,8 +33,7 @@ public class WriteAboutManager : IWriteAboutService
     public async Task<UpdateAboutDto> UpdateAbout(UpdateAboutDto updateAboutDto)
     {
 
-        var validationResult = await _updateAboutDtoValidator.ValidateAsync(updateAboutDto);
-        if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
+        await _validatorService.ValidateAsync(updateAboutDto);
 
         var existingAbout = await _unitOfWork.TAboutReadRepository.GetByIdAsync(updateAboutDto.Id);
         if (existingAbout is null) return null;
