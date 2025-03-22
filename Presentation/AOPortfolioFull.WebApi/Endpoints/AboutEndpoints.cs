@@ -8,9 +8,7 @@ using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Queries.GetAllAbou
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Queries.GetAllActiveAbout;
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Queries.GetByIdActiveAbout;
 using AOPortfolioFull.WebApi.Endpoints.Definitions;
-using Azure;
 using MediatR;
-using Microsoft.AspNetCore.Antiforgery;
 
 namespace AOPortfolioFull.WebApi.Endpoints;
 

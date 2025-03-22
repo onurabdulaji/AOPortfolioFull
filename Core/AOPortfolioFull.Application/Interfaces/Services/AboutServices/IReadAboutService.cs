@@ -8,5 +8,4 @@ public interface IReadAboutService
     Task<IList<GetAllAboutDto>> GetAllActiveAsync(bool isActive = true, CancellationToken cancellationToken = default);
     Task<IList<GetAboutByIdDto>> GetByIdActiveAsync(Guid Id, CancellationToken cancellationToken = default);
     Task<IList<GetAboutByIdDto>> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default);
-
 }

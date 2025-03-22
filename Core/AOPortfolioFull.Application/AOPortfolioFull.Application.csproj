@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="DTO\Response\" />
+    <Folder Include="Features\MediatR\ContactSlice\Comamnds\" />
   </ItemGroup>
 
 </Project>
