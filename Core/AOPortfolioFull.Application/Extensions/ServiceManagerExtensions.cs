@@ -11,5 +11,6 @@ public static class ServiceManagerExtensions
     {
         services.AddScoped<IReadAboutService, ReadAboutManager>();
         services.AddScoped<IWriteAboutService, WriteAboutManager>();
+
     }
 }

@@ -4,24 +4,25 @@ using AOPortfolioFull.Domain.Entities;
 using AOPortfolioFull.Domain.Interfaces.IUnitOfWorks;
 using FluentValidation;
 using Mapster;
-using System.Threading;
 
 namespace AOPortfolioFull.Application.Interfaces.Managers.AboutManagers;
 
 public class WriteAboutManager : IWriteAboutService
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IValidator<CreateAboutDto> _validator;
+    private readonly IValidator<CreateAboutDto> _createAboutValidator;
+    private readonly IValidator<UpdateAboutDto> _updateAboutDtoValidator;
 
-    public WriteAboutManager(IUnitOfWork unitOfWork, IValidator<CreateAboutDto> validator)
+    public WriteAboutManager(IUnitOfWork unitOfWork, IValidator<CreateAboutDto> createAboutValidator, IValidator<UpdateAboutDto> createAboutDtoValidator)
     {
         _unitOfWork = unitOfWork;
-        _validator = validator;
+        _createAboutValidator = createAboutValidator;
+        _updateAboutDtoValidator = createAboutDtoValidator;
     }
 
     public async Task<CreateAboutDto> CreateAbout(CreateAboutDto createAboutDto)
     {
-        var validationResult = await _validator.ValidateAsync(createAboutDto);
+        var validationResult = await _createAboutValidator.ValidateAsync(createAboutDto);
         if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
         var newAbout = createAboutDto.Adapt<About>();
@@ -34,6 +35,10 @@ public class WriteAboutManager : IWriteAboutService
 
     public async Task<UpdateAboutDto> UpdateAbout(UpdateAboutDto updateAboutDto)
     {
+
+        var validationResult = await _updateAboutDtoValidator.ValidateAsync(updateAboutDto);
+        if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
+
         var existingAbout = await _unitOfWork.TAboutReadRepository.GetByIdAsync(updateAboutDto.Id);
         if (existingAbout is null) return null;
 
@@ -55,6 +60,18 @@ public class WriteAboutManager : IWriteAboutService
         await _unitOfWork.SaveAsync();
 
         return new DeleteAboutDto { Id = Id, Message = $"About deleted successfully with ID : {Id}" };
+    }
+
+    public async Task<ChangeStatusAboutDto> ChangeStatus(Guid Id, CancellationToken token)
+    {
+        var checkAbout = await _unitOfWork.TAboutReadRepository.GetByIdAsync(Id);
+        if(checkAbout is null) throw new Exception($"We can't find about item with this ID => : {Id} .");
+
+        await _unitOfWork.TAboutWriteRepository.ChangeStatus(checkAbout.Id);
+
+        await _unitOfWork.SaveAsync();
+
+        return new ChangeStatusAboutDto { Id = Id, Message = $"Status is changed ! for this ID => : {Id}" };
     }
 }
 

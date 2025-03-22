@@ -1,6 +1,7 @@
 ﻿using AOPortfolioFull.Application.DTO.Request.AboutDtos;
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Commands.CreateAbout;
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Commands.DeleteAbout;
+using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Commands.StatusAbout;
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Commands.UpdateAbout;
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Queries.GetAboutById;
 using AOPortfolioFull.Application.Features.MediatR.AboutSlice.Queries.GetAllAbout;
@@ -17,7 +18,8 @@ public class AboutEndpoints : IEndpointDefinition
 {
     public void DefineEndpoints(IEndpointRouteBuilder app)
     {
-        var aboutGroup = app.MapGroup("/api/Abouts");
+        var aboutGroup = app.MapGroup("/api/Abouts")
+            .WithTags("Abouts");
 
         aboutGroup.MapGet("/GetAll", async (ISender sender) =>
         {
@@ -54,7 +56,13 @@ public class AboutEndpoints : IEndpointDefinition
         aboutGroup.MapDelete("/Delete/{id}", async (Guid id, ISender sender) =>
         {
             var response = await sender.Send(new DeleteAboutQuery { Id = id });
-            return Results.Ok(response) ?? Results.NoContent();
+            return Results.Ok(response) ?? Results.NotFound();
+
+        });
+        aboutGroup.MapPut("/ChangeStatus/{id}", async (Guid id, ISender sender) =>
+        {
+            var response = await sender.Send(new StatusAboutQuery { Id = id });
+            return Results.Ok(response) ?? Results.NotFound();
 
         });
     }

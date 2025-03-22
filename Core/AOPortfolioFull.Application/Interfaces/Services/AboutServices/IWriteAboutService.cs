@@ -7,5 +7,5 @@ public interface IWriteAboutService
     Task<CreateAboutDto> CreateAbout(CreateAboutDto createAboutDto);
     Task<UpdateAboutDto> UpdateAbout(UpdateAboutDto updateAboutDto);
     Task<DeleteAboutDto> DeleteAbout(Guid Id , CancellationToken token);
-    //Task<About> ChangeStatus(Guid Id);
+    Task<ChangeStatusAboutDto> ChangeStatus(Guid Id , CancellationToken token);
 }

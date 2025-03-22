@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace AOPortfolioFull.Application.Validations.AboutValidation;
 
-public class CreateAboutValidator :  AbstractValidator<CreateAboutDto>
+public class UpdateAboutValidator : AbstractValidator<UpdateAboutDto>
 {
-    public CreateAboutValidator()
+    public UpdateAboutValidator()
     {
         RuleFor(x => x.Title)
                .NotEmpty()

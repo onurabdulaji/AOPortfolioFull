@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\Infrastructure\AOPortfolioFull.Persistence\AOPortfolioFull.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

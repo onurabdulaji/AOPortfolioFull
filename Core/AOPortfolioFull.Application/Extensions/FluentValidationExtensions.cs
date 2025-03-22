@@ -1,5 +1,4 @@
 ﻿using AOPortfolioFull.Application.Behaviours;
-using AOPortfolioFull.Application.Validations.AboutValidation;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,5 +12,6 @@ public static class FluentValidationExtensions
     {
         services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
     }
 }
